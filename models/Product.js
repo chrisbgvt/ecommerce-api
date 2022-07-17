@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const schemaProduct = new mongoose.Schema({
-    name: {
+    title: {
         type: String,
-        required: [true, 'Name is required'],
-        min: [2, 'Name must be at least 2 carecters long'],
+        required: [true, 'Title is required'],
+        min: [2, 'Title must be at least 2 carecters long'],
     },
     image: {
         type: String,
@@ -21,25 +21,15 @@ const schemaProduct = new mongoose.Schema({
         required: true,
         min: 0.01
     },
+    quantity: {
+        type: Number,
+        required: true,
+        min: 0.01
+    },
     description: {
         type: String,
         required: true,
         min: [10, 'Description must be at least 10 symbols']
-    },
-    paymentMethod: {
-        type: String,
-        required: [true, 'Type is required'],
-        enum: ['crypto-wallet', 'credit-card', 'debit-card', 'paypal']
-    },
-    buyCrypto: [
-        {
-            type: mongoose.Types.ObjectId,
-            ref: 'User'
-        }
-    ],
-    owner: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User'
     }
 })
 

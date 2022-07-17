@@ -8,13 +8,13 @@ const {auth} = require('./middlewares/authMiddleware');
 const {errorHandler} = require('./middlewares/errorHandlerMiddleware');
 const cors = require('./middlewares/corsMiddleware');
 
-require('./config/hbs')(app);
+// require('./config/hbs')(app);
 
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/public', express.static('public'));
+// app.use('/public', express.static('public'));
 app.use(auth);
 app.use(routes);
 app.use(errorHandler);
