@@ -14,7 +14,7 @@ exports.login = async (username, password) => {
         }
     }
 
-    const isValid = bcrypt.compare(password, user.password);
+    const isValid = await bcrypt.compare(password, user.password);
 
     if(!isValid) {
         throw {

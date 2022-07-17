@@ -20,7 +20,7 @@ exports.auth = async (req, res, next) => {
         } catch(err) {
             res.clearCookie(COOKIE_SESSION_NAME);
             // return next(err);
-            res.redirect('auth/login');
+            res.status(500).json({message: 'Not Authorised'});
         }
     } else {
         next();
