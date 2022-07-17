@@ -15,10 +15,14 @@ const schemaUser = new mongoose.Schema({
         type: String,
         required: [true, 'Role is required']
     },
-    cartHistory: [
+    cartHistory: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Cart'
+    },
+    orders: [
         {
             type: mongoose.Types.ObjectId,
-            ref: 'Cart'
+            ref: 'Order'
         }
     ],
 })
