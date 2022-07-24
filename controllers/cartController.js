@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
         user.cart.push(createdCart._id);
         await user.save();
         
-        res.status(200).json({message: 'Product added to cart!', createdCart});
+        res.status(200).json(createdCart);
     } catch (error) {
         return res.status(500).json({ error: getErrorMessage(error) }); 
     }
@@ -51,6 +51,7 @@ router.patch('/', async (req, res) => {
         return res.status(500).json({ error: 'Price must be between 1 and 1000' }); 
     }
 
+
     try {
         const user = await userService.getByIdPopulated(cart.userId);
 
@@ -59,16 +60,17 @@ router.patch('/', async (req, res) => {
         const cartData = await cartService.getById(cartId);
 
         if(cartData.products.find(x => x.productId == cart.products[0].productId)) {
-            cartData.products.map(x => x.productId == cart.products[0].productId ? (x.quantity += 1, x.price *= 2) : x)
+            cartData.products.map(x => x.productId == cart.products[0].productId ? (x.quantity += cart.products[0].quantity, x.price += (cart.products[0].price * cart.products[0].quantity)) : x)
         } else {
             cartData.products.push(cart.products[0]);
         }
 
         
-        const updatedCart = await cartService.edit(cartId, cartData);
+        await cartService.edit(cartId, cartData);
+        const updatedCart = await cartService.getById(cartId);
         
         
-        res.status(200).json({message: 'Product added to cart!', updatedCart});
+        res.status(200).json(updatedCart);
     } catch (error) {
         return res.status(500).json({ error: getErrorMessage(error) }); 
     }
