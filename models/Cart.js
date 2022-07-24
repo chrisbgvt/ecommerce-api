@@ -5,8 +5,7 @@ const schemaCart = new mongoose.Schema({
         {
             productId: {
                 type: mongoose.Types.ObjectId,
-                ref: 'Product',
-                required: [true, 'ProductId is required'],
+                ref: 'Product'
             },
             title: {
                 type: String,

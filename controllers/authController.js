@@ -32,17 +32,20 @@ router.post('/login', async (req, res) => {
 // });
 
 router.post('/register', async (req, res) => {
-    console.log(req.body);
-    const { username, password, repeatPassword } = req.body;
+    const { username, password, repeatPassword, role } = req.body;
 
     if(password !== repeatPassword) {
         // return res.render('auth/register', { error: 'Password mismatch' });
         return res.json({ error: 'Password mismatch' });
     }
 
+    if(role == ' ') {
+        return res.json({ error: 'Role is required' });
+    }
+
     //Create user
     try {
-        const createdUser = await authService.register({username, password});
+        const createdUser = await authService.register({username, password, role});
         // const token = await authService.createToken(createdUser);
 
         res.status(200).json({message: `User ${createdUser.username} created successfully!`});
