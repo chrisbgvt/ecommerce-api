@@ -7,6 +7,7 @@ const userService = require('../services/userService');
 // Create Cart
 router.post('/', async (req, res) => {
     let cart = req.body;
+    cart.userId = req.user._id;
     
 
     if(cart.products.productId) {
@@ -23,7 +24,7 @@ router.post('/', async (req, res) => {
 
     try {
         const createdCart = await cartService.create(cart);
-        const user = await userService.getById(createdCart.userId);
+        const user = await userService.getById(req.user._id);
         user.cart.push(createdCart._id);
         await user.save();
         
@@ -37,6 +38,7 @@ router.post('/', async (req, res) => {
 // Update Cart
 router.patch('/', async (req, res) => {
     let cart = req.body;
+    cart.userId = req.user._id;
     
 
     if(cart.products.productId) {

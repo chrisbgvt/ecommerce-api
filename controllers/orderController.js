@@ -16,9 +16,9 @@ router.post('/', async (req, res) => {
 
         userCart[0].products.map(x => (order.push(x.title), totalPrice += Number(x.price)));
 
-        const newOrder = await orderService.create({titles: order, totalPrice, userId: userCart[0].userId});
+        const newOrder = await orderService.create({titles: order, totalPrice, userId: req.user._id});
 
-        const user = await userService.getById(userCart[0].userId);
+        const user = await userService.getById(req.user._id);
         user.cart = [];
         user.orders.push(newOrder);
         await user.save();
@@ -31,9 +31,9 @@ router.post('/', async (req, res) => {
 });
 
 // Get Orders
-router.get('/:userId', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const orders = await orderService.getOrdersOfUser(req.params.userId);
+        const orders = await orderService.getOrdersOfUser(req.user._id);
 
         res.json(orders);
     } catch(error) {
