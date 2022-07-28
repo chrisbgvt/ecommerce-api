@@ -13,7 +13,8 @@ const schemaUser = new mongoose.Schema({
     },
     role: {
         type: String,
-        required: [true, 'Role is required']
+        required: [true, 'Role is required'],
+        enum: ['user', 'admin']
     },
     cart: [
         {

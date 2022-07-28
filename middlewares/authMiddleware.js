@@ -22,13 +22,21 @@ exports.auth = async (req, res, next) => {
             // return next(err);
             res.status(500).json({message: 'Not Authorised'});
         }
-    } else if (token == undefined) {
+    } else if (!token && (req.path != '/auth/login' && req.path != '/auth/register')) {
         return res.status(500).json({message: 'Provide token in request headers'});
     } else {
         next();
     }
 
 };
+
+exports.isAdmin = (req, res, next) => {
+    if(req.user.role !== 'admin') {
+        return res.status(500).json({message: 'User must be admin to add, edit or delete product'});
+    }
+
+    next();
+}
 
 exports.isAuth = (req, res, next) => {
     if(!req.user) {

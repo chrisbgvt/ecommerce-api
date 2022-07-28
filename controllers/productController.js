@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const { getErrorMessage } = require('../utils/errorHelpers');
+const { isAdmin } = require('../middlewares/authMiddleware');
 
 const productService = require('../services/productService');
 
 // Create Product
-router.post('/', async (req, res) => {
+router.post('/', isAdmin, async (req, res) => {
     let {title, image, price, quantity, description} = req.body;
     let product = req.body;
 
@@ -54,7 +55,7 @@ router.get('/:productId', async (req, res) => {
 });
 
 // Edit
-router.put('/:productId', async (req, res) => {
+router.put('/:productId', isAdmin, async (req, res) => {
     const productData = req.body;
 
     try {
@@ -67,7 +68,7 @@ router.put('/:productId', async (req, res) => {
 });
 
 // Delete
-router.delete('/:productId', async (req, res) => {
+router.delete('/:productId', isAdmin, async (req, res) => {
     
     try {
         const product = await productService.delete(req.params.productId);
