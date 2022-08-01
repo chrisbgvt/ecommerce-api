@@ -32,7 +32,7 @@ exports.auth = async (req, res, next) => {
 
 exports.isAdmin = (req, res, next) => {
     if(req.user.role !== 'admin') {
-        return res.status(500).json({message: 'User must be admin to add, edit or delete product'});
+        return res.status(403).json({message: 'User must be admin to add, edit or delete product'});
     }
 
     next();
