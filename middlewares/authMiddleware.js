@@ -22,7 +22,7 @@ exports.auth = async (req, res, next) => {
             // return next(err);
             res.status(500).json({message: 'Not Authorised'});
         }
-    } else if (!token && (req.path != '/auth/login' && req.path != '/auth/register')) {
+    } else if (!token && (req.path != '/auth/login' && req.path != '/auth/register' && req.path != '/products')) {
         return res.status(500).json({message: 'Provide token in request headers'});
     } else {
         next();
