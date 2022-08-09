@@ -22,9 +22,9 @@ router.post('/', isAdmin, async (req, res) => {
     }
 
     try {
-        await productService.create(product);
+        const createdProduct = await productService.create(product);
         
-        res.status(200).json({message: 'Product created!'});
+        res.status(200).json(createdProduct);
     } catch (error) {
         return res.status(500).json({ error: getErrorMessage(error) }); 
     }
@@ -60,8 +60,9 @@ router.put('/:productId', isAdmin, async (req, res) => {
 
     try {
         await productService.edit(req.params.productId, productData);
+        const updatedProduct = await productService.getById(req.params.productId);
         
-        res.status(200).json(productData);
+        res.status(200).json(updatedProduct);
     } catch (error) {
         return res.status(500).json({ error: getErrorMessage(error) }); 
     }
@@ -73,7 +74,7 @@ router.delete('/:productId', isAdmin, async (req, res) => {
     try {
         const product = await productService.delete(req.params.productId);
 
-        res.status(200).json({message: 'Product deleted successfully!'});
+        res.status(200).json(req.params.productId);
     } catch (error) {
         return res.status(500).json({ error: getErrorMessage(error) }); 
     }
