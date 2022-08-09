@@ -10,13 +10,14 @@ router.post('/', async (req, res) => {
 
     try {
         const userCart = await cartService.getAll();
+        const {titles, totalPrice} = req.body;
 
-        let order = [];
-        let totalPrice = 0;
+        // let order = [];
+        // let totalPrice = 0;
 
-        userCart[0].products.map(x => (order.push(x.title), totalPrice += Number(x.price)));
+        // userCart[0].products.map(x => (order.push(x.title), totalPrice += Number(x.price)));
 
-        const newOrder = await orderService.create({titles: order, totalPrice, userId: req.user._id});
+        const newOrder = await orderService.create({titles, totalPrice, userId: req.user._id});
 
         const user = await userService.getById(req.user._id);
         user.cart = [];
