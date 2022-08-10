@@ -4,6 +4,17 @@ const { isAdmin } = require('../middlewares/authMiddleware');
 
 const productService = require('../services/productService');
 
+//Get newest
+router.get('/newest', async (req, res) => {
+    try {
+        const newestProducts = await productService.getLastThree().lean();
+
+        res.status(200).json(newestProducts);
+    } catch(error) {
+        return res.status(500).json({ error: getErrorMessage(error) }); 
+    }
+});
+
 // Create Product
 router.post('/', isAdmin, async (req, res) => {
     let {title, image, price, quantity, description} = req.body;

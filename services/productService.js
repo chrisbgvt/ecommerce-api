@@ -11,3 +11,5 @@ exports.getById = (productId) => Product.findById(productId);
 exports.edit = (id, productData) => Product.findByIdAndUpdate(id, productData);
 
 exports.delete = (id) => Product.deleteOne({_id: id});
+
+exports.getLastThree = () => Product.find().sort({"_id": -1}).limit(3);
