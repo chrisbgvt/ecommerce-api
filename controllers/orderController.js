@@ -4,13 +4,14 @@ const { getErrorMessage } = require('../utils/errorHelpers');
 const cartService = require('../services/cartService');
 const userService = require('../services/userService');
 const orderService = require('../services/orderServices');
+const productService = require('../services/productService');
 
 // Create Order
 router.post('/', async (req, res) => {
 
     try {
         const userCart = await cartService.getAll();
-        const {titles, totalPrice} = req.body;
+        const {titles, totalPrice, products} = req.body;
 
         // let order = [];
         // let totalPrice = 0;
@@ -24,6 +25,13 @@ router.post('/', async (req, res) => {
         user.orders.push(newOrder);
         await user.save();
         await cartService.delete(userCart[0]._id);
+        products.map(async (x) => {
+            const id = x.productId;
+            const qty = x.quantity;
+
+            const product = await productService.getById(id);
+            await productService.deductQty(id, product.quantity, qty);
+        });
         
         res.status(200).json({message: 'Order created!'});
     } catch (error) {
