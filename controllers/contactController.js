@@ -2,14 +2,15 @@ const router = require('express').Router();
 const { getErrorMessage } = require('../utils/errorHelpers');
 const nodemailer = require('nodemailer');
 const Mailjet = require('node-mailjet');
+const { MJ_APIKEY_PUBLIC, MJ_APIKEY_PRIVATE } = require('../config/env');
 
 
 router.post('/', async (req, res) => {
     const { email, subject, text } = req.body;
 
     const mailjet = new Mailjet({
-        apiKey: process.env.MJ_APIKEY_PUBLIC || '4ad5b6dbad638414b448b29b7c392008',
-        apiSecret: process.env.MJ_APIKEY_PRIVATE || 'd8e4e7a0e316d90f420e606459e27d2d'
+        apiKey: MJ_APIKEY_PUBLIC || 'your-api-key',
+        apiSecret: MJ_APIKEY_PRIVATE || 'your-api-secret'
     });
 
     const transporter = nodemailer.createTransport({
