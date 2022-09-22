@@ -38,6 +38,8 @@ exports.MJ_APIKEY_PRIVATE = 'your API secret'
 
 ## How to check it out
 
-Clone the project from this repository. Run `npm install` after that `npm start` and the app will start on [http://localhost:3001](http://localhost:3001) in your browser. 
+Clone the project from this repository. Run `npm install` after that `npm start` and the app will start on [http://localhost:3001](http://localhost:3001) in your browser. DB is hosted on MongoDB Atlas.
 
+## Client
 
+For frontend i use my other project [https://github.com/chrisbgvt/React-shop](https://github.com/chrisbgvt/React-shop).
