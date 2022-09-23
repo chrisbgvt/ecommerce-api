@@ -34,7 +34,7 @@ Provide token in request headers:
 X-Authorization: {token}
 ```
 
-In order for the `/contact` endpoint to send emails with mailjet, public and private keys need to be provided in env.js file:
+In order for the `/contact` endpoint to send emails with `mailjet`, public and private keys need to be provided in env.js file:
 ```
 exports.MJ_APIKEY_PUBLIC = 'your API key'
 exports.MJ_APIKEY_PRIVATE = 'your API secret'
