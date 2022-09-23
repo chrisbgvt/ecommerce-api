@@ -1,6 +1,11 @@
 # E-commerce API
 
-Basic REST API implementation with JWT token authentication for learning purposes
+Basic REST API implementation with JWT token authentication for learning purposes.
+
+## How to check it out
+
+Clone the project from this repository. Run `npm install` after that `npm start`. DB is hosted on MongoDB Atlas.
+
 ## Endpoints:
 ### Auth
 - `POST` http://localhost:3001/auth/login 
@@ -29,16 +34,11 @@ Provide token in request headers:
 X-Authorization: {token}
 ```
 
-In order for the contact endpoint to send emails with mailjet, public and private keys need to be provided in env.js file:
+In order for the `/contact` endpoint to send emails with mailjet, public and private keys need to be provided in env.js file:
 ```
 exports.MJ_APIKEY_PUBLIC = 'your API key'
 exports.MJ_APIKEY_PRIVATE = 'your API secret'
 ```
-
-
-## How to check it out
-
-Clone the project from this repository. Run `npm install` after that `npm start` and the app will start on [http://localhost:3001](http://localhost:3001) in your browser. DB is hosted on MongoDB Atlas.
 
 Initially created users:
 ```
