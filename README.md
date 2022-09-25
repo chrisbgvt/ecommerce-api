@@ -1,6 +1,6 @@
 # E-commerce API
 
-Basic REST API implementation with JWT token authentication for learning purposes.
+Basic REST API implementation in `Node.js` with `JWT` token authentication for learning purposes.
 
 ## How to check it out
 
